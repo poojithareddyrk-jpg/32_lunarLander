@@ -7,6 +7,7 @@ STEP = 20
 THRUST, ROTATE_SPEED, BURN_RATE, FUEL_MAX = 60.0, 2.4, 22.0, 300.0
 MAX_SPEED_X, MAX_SPEED_Y, MAX_ANGLE = 25.0, 40.0, 0.25
 FOOT = 12
+landing_bursts = []
 
 
 def ship_color(fuel_ratio):
@@ -19,8 +20,8 @@ def ship_color(fuel_ratio):
 
 
 def on_landing(score):
-    """Called after a successful landing with the points just earned; add fireworks or bonuses here."""
-    pass
+    """Start a short fireworks burst after a successful landing."""
+    landing_bursts.append((pygame.time.get_ticks(), WIDTH // 2, HEIGHT // 2))
 
 
 def bonus_life_threshold():
@@ -157,6 +158,19 @@ class Game:
         if self.message:
             label = self.font.render(self.message, True, (255, 255, 120))
             screen.blit(label, label.get_rect(center=(WIDTH // 2, HEIGHT // 3)))
+        now = pygame.time.get_ticks()
+        colors = ((255, 90, 80), (255, 210, 80), (100, 220, 255), (180, 130, 255))
+        for started, center_x, center_y in landing_bursts[:]:
+            elapsed = (now - started) / 1000
+            if elapsed >= 1.5:
+                landing_bursts.remove((started, center_x, center_y))
+                continue
+            for index in range(24):
+                angle = math.tau * index / 24
+                distance = elapsed * (75 + (index % 5) * 12)
+                position = (center_x + math.cos(angle) * distance,
+                            center_y + math.sin(angle) * distance)
+                pygame.draw.circle(screen, colors[index % len(colors)], position, 3)
 
 
 def main():
