@@ -10,8 +10,12 @@ FOOT = 12
 
 
 def ship_color(fuel_ratio):
-    """Return an (r, g, b) hull colour for the given fuel ratio (1.0 = full), or None for the default."""
-    pass
+    """Return an RGB hull colour that shifts from normal to red as fuel runs low."""
+    fuel_ratio = max(0.0, min(1.0, fuel_ratio))
+    red = round(255 - 25 * fuel_ratio)
+    green = round(70 + 160 * fuel_ratio)
+    blue = round(70 + 170 * fuel_ratio)
+    return red, green, blue
 
 
 def on_landing(score):
