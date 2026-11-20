@@ -1,91 +1,91 @@
-# Lunar Lander Repair Lab
+#  Lunar Lander – Lab 4
 
-This project is a single-file Lunar Lander-lite clone using **Pygame**. It introduces students to vector physics, procedural terrain generation, and multi-condition landing validation using a small, readable object-oriented codebase.
+## Project Overview
 
----
+Lunar Lander is a Python-based game developed using Pygame. The player controls a spacecraft and attempts to land safely on the lunar surface while managing fuel, speed, and landing angle.
 
-## What's Provided
+This lab focuses on debugging, physics-based game logic, landing validation, and implementing additional gameplay features using AI-assisted development.
 
-A working Lunar Lander-lite game with:
+## Technologies Used
 
-- A ship with rotation, thrust, gravity, and limited fuel, wrapping horizontally around the screen
-- Procedurally generated terrain with two landing pads of different point multipliers
-- Touchdown validation based on speed and angle, with a full HUD showing live telemetry
-- Levels, lives, and scoring for successful landings
+- Python 3
+- Pygame
 
-It has **one deliberate bug** and **three optional features** left as empty functions. You are expected to **analyze**, **interact with an AI assistant**, and **complete/fix** the game to make it fully functional and more interesting.
+## Tasks Completed
 
-### **Use an LLM (e.g. ChatGPT or Claude) as your debugging and pair-programming partner for this lab.**
+### Task 1 – Touchdown Validation
+Fixed the touchdown validation bug by checking the spacecraft's horizontal speed (`MAX_SPEED_X`), vertical speed (`MAX_SPEED_Y`), and landing angle (`MAX_ANGLE`). The spacecraft must satisfy all landing conditions to achieve a safe landing.
 
----
+### Task 2 – Ship Color Based on Fuel
+Implemented `ship_color(fuel_ratio)` to dynamically change the spacecraft's color based on the remaining fuel. The ship's color shifts toward red as fuel decreases.
 
-## Getting Started
+### Task 3 – Landing Effect
+Implemented `on_landing(score)` to trigger a fireworks particle effect when the spacecraft lands successfully.
 
-### Setup
+### Task 4 – Bonus Life
+Implemented `bonus_life_threshold()` with a score threshold of 1500. Bonus lives are awarded automatically when the player reaches the required score milestones.
 
-1. Make sure you have Python 3.10+ installed.
-2. Install dependencies:
+## Game Features
 
-```bash
-pip install pygame
-```
+- Spacecraft rotation and thrust
+- Gravity and physics-based movement
+- Fuel management
+- Horizontal screen wrapping
+- Procedurally generated terrain
+- Two landing pads with different score multipliers
+- Landing validation based on speed and angle
+- Score, level, and lives tracking
+- Fireworks landing effect
+- Bonus lives based on score
 
-3. Run the game:
+## Controls
 
-```bash
-python game.py
-```
+| Key | Action |
+|---|---|
+| Left Arrow | Rotate left |
+| Right Arrow | Rotate right |
+| Up Arrow | Apply thrust |
+| R | Reset game |
+| Space | Continue after landing or crashing |
 
-**Controls:** Left/Right to rotate, Up to thrust, `R` to reset, Space to continue after landing or crashing.
+## How to Run
 
----
+1. Clone the repository:
 
-## Tasks to Complete
+   ```bash
+   git clone https://github.com/poojithareddyrk-jpg/32_lunarLander.git
+   ```
 
-Each task must be completed using an iterative process involving LLM suggestions and your critical code review.
+2. Navigate to the project directory:
 
-### Task 1: Fix the touchdown validation bug
+   ```bash
+   cd 32_lunarLander
+   ```
 
-> A safe landing is supposed to require the ship to be over a pad, descending slowly, roughly level, *and* not moving sideways too fast. In the current build, a ship can slam down sideways — well beyond `MAX_SPEED_X` — on a pad at a safe vertical speed and angle, and it still counts as a perfect landing. Check the condition in `touchdown()` against all three constants it defines near the top of the file (`MAX_SPEED_X`, `MAX_SPEED_Y`, `MAX_ANGLE`), and see which one it never actually checks.
+3. Install Pygame:
 
-### Task 2: Implement `ship_color(fuel_ratio)`
+   ```bash
+   pip install pygame
+   ```
 
-> Called once per frame in `draw`, as `color = ship_color(max(0.0, self.fuel) / FUEL_MAX) or (230, 230, 240)`. It receives the remaining fuel as a fraction from `0.0` (empty) to `1.0` (full) and should return an `(r, g, b)` hull color, or `None` to keep the default. Idea: shift the hull toward red as fuel runs low.
+4. Run the game:
 
-### Task 3: Implement `on_landing(score)`
+   ```bash
+   python game.py
+   ```
 
-> Called from `touchdown()` immediately after a successful landing's points are added to the score. It receives the number of points just earned from that landing. Its return value is ignored. Idea: a fireworks effect, or a distinct sound for a high-multiplier pad.
+## Submission Evidence
 
-### Task 4: Implement `bonus_life_threshold()`
+### Before Modification – Gameplay Video
+The video demonstrates the original touchdown validation bug before the fix.
 
-> Called every frame in `update()`. It takes no arguments and should return an integer score value, or `None` to disable bonus lives entirely. Whenever the score crosses a multiple of that value for the first time, one life is awarded automatically — the bookkeeping (`self.bonus_awarded`) is already implemented, so you only need to choose the threshold. Idea: return `1500`.
+### After Modification – Gameplay Video
+The video demonstrates the corrected touchdown validation and the implemented gameplay features.
 
----
+**Google Drive – Lab 4 Videos and Submission Evidence:**
+[Open Drive Folder](https://drive.google.com/drive/folders/12lvGPXnbArDxkLwwgIR-29G5V8VN1jtr?usp=drive_link)
 
-## Expected Behavior
+## Author
 
-- The ship wraps horizontally but never moves past the top of the screen; gravity and rotated thrust behave like real vectors
-- Terrain always includes exactly two landing pads with different score multipliers
-- A landing only counts as successful when the ship is over a pad, descending slowly, roughly level, and not drifting sideways too fast
-- Fuel never goes negative, and thrust cuts out automatically once it runs out
-- A crash costs a life; the game ends when lives reach zero
-
----
-
-## Folder Structure
-
-```
-lunar_lander/
-├── game.py
-└── README.md
-```
-
----
-
-## Submission Checklist
-
-Submission is only the following three things:
-
-- [] A 10-second video of gameplay **before** your changes, showing the bug/broken behavior
-- [] A 10-second video of gameplay **after** your changes, showing the bug fixed and the new features working
-- [] The Chat/LLM used page link, with the complete chat history
+**Poojitha P**
+PES University – Lab 4
